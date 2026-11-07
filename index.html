@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUST Student Portal </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- =========================================================================
+         INTERFACE 1: LOGIN SCREEN 
+         ========================================================================= -->
+    <div id="login-screen" class="screen-container split-layout">
+        
+        <!-- Left Banner: Now features the campus building image as a dynamic CSS background mask -->
+        <aside class="branding-sidebar campus-bg">
+            <div class="sidebar-header">
+                <!-- INTEGRATION: Real university logo badge replaces text placeholder -->
+                <img src="C:\Users\CANNIZZARO\Desktop\course work\IT$W\MUST-Portal\Logo.png" alt="MUST Logo" class="logo-badge">
+                <span class="system-title">MUST APPLICATION PORTAL</span>
+            </div>
+            
+            <div class="sidebar-hero-content">
+                <span class="badge-accent">Global Rankings Recognition</span>
+                <h1 class="main-heading">Sustaining Excellence in Science, Technology & Innovation.</h1>
+                <p class="supporting-text">
+                    Welcome to the Mbarara University of Science and Technology academic system. Designed with global digital interface standards to support seamless student administration.
+                </p>
+            </div>
+
+            <div class="info-card-grid">
+                <div class="info-card border-orange">
+                    <h3 class="card-title">33rd Graduation Ceremony</h3>
+                    <p class="card-desc">Scheduled access details for the upcoming October convocation event lines.</p>
+                </div>
+                <div class="info-card border-gray">
+                    <h3 class="card-title">THE World University Rankings</h3>
+                    <p class="card-desc">Proudly recognized among top continental institutions for impact.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Side: The functional login access control panel -->
+        <main class="form-panel-wrapper">
+            <div class="form-container">
+                <header class="form-header">
+                    <h2>Sign in to your Portal</h2>
+                    <p>Please enter your credentials below.</p>
+                </header>
+                
+                <form class="portal-form" onsubmit="event.preventDefault();">
+                    <div class="input-group">
+                        <label for="login-id">Student ID / Registered Email</label>
+                        <input type="text" id="login-id" placeholder="ex: 2026/BIT/001/PS" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="label-row">
+                            <label for="login-password">Password</label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Login Securely</button>
+                </form>
+                
+                <footer class="form-footer">
+                    <p>New student joining MUST? 
+                        <button type="button" onclick="switchScreen('register-screen')" class="switch-view-btn">Create an account here</button>
+                    </p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- =========================================================================
+         INTERFACE 2: ACCOUNT CREATION SCREEN
+         ========================================================================= -->
+    <div id="register-screen" class="screen-container full-page-layout hidden">
+        <div class="registration-card">
+            <div class="accent-top-bar"></div>
+            
+            <div class="registration-content">
+                <header class="registration-header">
+                    <div class="registration-title-block">
+                        <!-- INTEGRATION: Added mini logo badge to formalize the registration sheet header -->
+                        <img src="C:\Users\CANNIZZARO\Desktop\course work\IT$W\MUST-Portal\Logo.png" alt="MUST Logo" class="logo-badge-small">
+                        <div>
+                            <h2>Student Registration System</h2>
+                            <p>Set up your digital portal credentials to register.</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="switchScreen('login-screen')" class="btn btn-secondary">
+                        &larr; Back to Login
+                    </button>
+                </header>
+
+                <form class="portal-form grid-form" onsubmit="event.preventDefault();">
+                    <div class="input-group span-2">
+                        <label for="reg-name">Full Legal Name</label>
+                        <input type="text" id="reg-name" placeholder="As it appears on your admission letter" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg-number">Student or Application No.</label>
+                        <input type="text" id="reg-number" placeholder="ex: 260074321" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg-faculty">Primary Faculty Assignment</label>
+                        <select id="reg-faculty" required>
+                            <option value="" disabled selected>Select your Faculty</option>
+                            <option value="fci">Faculty of Computing and Informatics</option>
+                            <option value="fast">Faculty of Applied Science and Technology</option>
+                            <option value="fhs">Faculty of Health Sciences</option>
+                            <option value="fbms">Faculty of Business and Management Sciences</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg-pass">Create Password</label>
+                        <input type="password" id="reg-pass" placeholder="Minimum 8 characters" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg-confirm">Confirm Password</label>
+                        <input type="password" id="reg-confirm" placeholder="Retype password securely" required>
+                    </div>
+                    
+                    <div class="input-group span-2 upload-zone">
+                        <p class="upload-label">Verification Documents (PDF/JPEG Format Max 5MB)</p>
+                        <input type="file" id="reg-file" class="file-input-hidden">
+                        <button type="button" class="btn btn-upload" onclick="document.getElementById('reg-file').click()">Upload Admission File</button>
+                    </div>
+                    
+                    <div class="input-group span-2">
+                        <button type="submit" class="btn btn-accent">Complete Account Registration</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchScreen(screenId) {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('register-screen').classList.add('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

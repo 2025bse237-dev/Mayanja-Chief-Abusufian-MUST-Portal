@@ -1,0 +1,517 @@
+/* =========================================================================
+   1. GLOBAL ARCHITECTURE & DESIGN VARIABLES
+   ========================================================================= */
+:root {
+    /* Cloned Corporate Palette Rules from National University of Singapore (NUS) */
+    --nus-blue: #003D7C;       /* Primary Brand Weight */
+    --nus-orange: #EF7C00;     /* Call-to-action & Interactive States */
+    
+    /* Secondary Context Background Textures adapted for MUST */
+    --must-bg: #F4F6F9;        /* Cool ash grey structural backdrop */
+    --text-main: #333333;      /* High accessibility contrast values */
+    --text-muted: #666666;     /* Secondary placeholder descriptive text */
+    --white: #FFFFFF;
+    
+    /* Layout Framework Variables */
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --transition-smooth: all 0.25s ease-in-out;
+    --box-shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Base Body Reset Patterns */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--must-bg);
+    color: var(--text-main);
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* Helper Class to hold structural view layers hidden when out of scope */
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================================
+   2. REUSABLE CORE INTERACTIVE COMPONENTS (BUTTONS & INPUTS)
+   ========================================================================= */
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--nus-blue);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 61, 124, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #002b57;
+}
+
+.btn-accent {
+    background-color: var(--nus-orange);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(239, 124, 0, 0.2);
+}
+
+.btn-accent:hover {
+    background-color: #d66f00;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--nus-blue);
+    border: 1px solid var(--nus-blue);
+    width: auto;
+    padding: 8px 16px;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 61, 124, 0.05);
+}
+
+.btn-upload {
+    background-color: var(--white);
+    color: #444;
+    border: 1px solid #cccccc;
+    width: auto;
+    padding: 8px 16px;
+    margin-top: 8px;
+}
+
+.btn-upload:hover {
+    background-color: #f9f9f9;
+}
+
+/* Shared Input Component Styling rules */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"],
+.input-group select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    background-color: var(--white);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: var(--nus-blue);
+    box-shadow: 0 0 0 3px rgba(0, 61, 124, 0.15);
+}
+
+/* =========================================================================
+   3. STRUCTURAL SCREEN 1: SPLIT LAYOUT LOGIN VIEW
+   ========================================================================= */
+.screen-container {
+    min-height: 100vh;
+}
+
+.split-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+    .split-layout {
+        flex-direction: row;
+    }
+}
+
+/* Brand Display Column Framework */
+.branding-sidebar {
+    background-color: var(--nus-blue);
+    color: var(--white);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (min-width: 1024px) {
+    .branding-sidebar {
+        width: 58.333%;
+        padding: 60px;
+    }
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-placeholder {
+    background-color: var(--nus-orange);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 2px;
+}
+
+.system-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.sidebar-hero-content {
+    margin: 40px 0;
+    max-w: 520px;
+}
+
+.badge-accent {
+    background-color: var(--nus-orange);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+.main-heading {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.supporting-text {
+    color: #cccccc;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Bottom Card Grids mimicking Information Cards on the NUS template */
+.info-card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+}
+
+@media (min-width: 768px) {
+    .info-card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.info-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    border-radius: 2px;
+}
+
+.info-card.border-orange { border-left: 4px solid var(--nus-orange); }
+.info-card.border-gray { border-left: 4px solid #888888; }
+
+.card-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.card-desc {
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+/* Form Panel Control Alignment */
+.form-panel-wrapper {
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+
+@media (min-width: 1024px) {
+    .form-panel-wrapper {
+        width: 41.666%;
+        padding: 60px;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.03);
+    }
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-header h2 {
+    color: var(--nus-blue);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.portal-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-link {
+    font-size: 12px;
+    color: var(--nus-orange);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-link:hover { text-decoration: underline; }
+
+.form-footer {
+    margin-top: 30px;
+    border-top: 1px solid #eeeeee;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #555555;
+}
+
+.switch-view-btn {
+    background: none;
+    border: none;
+    color: var(--nus-orange);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.switch-view-btn:hover { text-decoration: underline; }
+
+/* =========================================================================
+   4. STRUCTURAL SCREEN 2: STANDALONE ACCOUNT REGISTRATION CARD
+   ========================================================================= */
+.full-page-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.registration-card {
+    background-color: var(--white);
+    width: 100%;
+    max-width: 680px;
+    box-shadow: var(--box-shadow-premium);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.accent-top-bar {
+    height: 6px;
+    background-color: var(--nus-orange);
+}
+
+.registration-content {
+    padding: 30px;
+}
+
+@media (min-width: 640px) {
+    .registration-content { padding: 50px; }
+}
+
+.registration-header {
+    display: flex;
+    flex-direction: column;
+    border-b: 1px solid #eeeeee;
+    padding-bottom: 20px;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .registration-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.registration-header h2 {
+    color: var(--nus-blue);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.registration-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* Responsive Double Column Grid System inside vanilla CSS */
+.grid-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 640px) {
+    .grid-form {
+        grid-template-columns: 1fr 1fr;
+    }
+    .span-2 {
+        grid-column: span 2;
+    }
+}
+
+.upload-zone {
+    background-color: #fafbfc;
+    border: 1px dashed #cccccc;
+    padding: 20px;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.upload-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.file-input-hidden {
+    display: none;
+}
+
+/* =========================================================================
+   IMAGE STYLING EXTENSIONS & DESIGN WRAPPERS
+   ========================================================================= */
+
+/* The Campus Building background layer using a linear gradient overlay mask */
+.branding-sidebar.campus-bg {
+    background-image: linear-gradient(rgba(0, 61, 124, 0.88), rgba(0, 61, 124, 0.95)), url('building.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Institutional Logo Sizing Rules */
+.logo-badge {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    background-color: var(--white);
+    padding: 2px;
+    border-radius: 50%; /* Gives it a crisp round boundary */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logo-badge-small {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+/* Registration Header Alignment Framework */
+.registration-title-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+/* =========================================================================
+   FULL SCREEN CAMPUS BACKGROUND WITH FROSTED GLASS FORMS
+   ========================================================================= */
+
+/* Sets the building image as the background for the entire login screen wrapper */
+#login-screen {
+    background-image: linear-gradient(rgba(0, 31, 62, 0.5), rgba(0, 31, 62, 0.7)), url('building.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Turns the left sidebar transparent so it floats elegantly */
+.branding-sidebar {
+    background-color: transparent !important;
+    background-image: none !important;
+    max-width: 500px;
+}*/
+
+/* Turns the right form panel into a stunning frosted glass card */
+.form-panel-wrapper {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px); /* Creates the premium frosted glass blur effect */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjust responsiveness so they stack cleanly on mobile overlays */
+@media (max-width: 1023px) {
+    #login-screen {
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow-y: auto;
+        gap: 30px;
+    }
+    .branding-sidebar {
+        padding: 20px 10px 0 10px;
+        text-align: center;
+    }
+    .sidebar-header {
+        justify-content: center;
+    }
+    .sidebar-hero-content {
+        margin: 20px 0;
+    }
+}
